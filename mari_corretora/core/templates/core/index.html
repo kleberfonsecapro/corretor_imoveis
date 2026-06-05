@@ -1,0 +1,596 @@
+{% load static humanize %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config.site_name|default:"Mari Corretora" }} | Imóveis de Alto Padrão</title>
+    <meta name="description"
+        content="Imóveis de alto padrão em Porto Belo e Itapema. Exclusividade e sofisticação no litoral catarinense.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="loader-logo">
+            <span class="loader-text">MC</span>
+        </div>
+    </div>
+
+    <div class="top-bar">
+        <div class="container top-bar-container">
+            <div class="top-bar-info">
+                <a href="https://wa.me/554788562089" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i> (47) 8856-2089
+                </a>
+                <a href="mailto:contato@maricorretora.com.br">
+                    <i class="far fa-envelope"></i> contato@maricorretora.com.br
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                {% if config.logo %}
+                <img src="{{ config.logo.url }}" alt="{{ config.site_name }}">
+                {% else %}
+                <img src="{% static 'core/images/logo.svg' %}" alt="Mari Corretora" class="logo-svg">
+                {% endif %}
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="#hero" class="nav-link active">Home</a></li>
+                    <li><a href="#properties" class="nav-link">Imóveis</a></li>
+                    <li><a href="#about" class="nav-link">Sobre</a></li>
+                    <li><a href="#contact" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-bg-slider">
+            {% for image in carousel_images %}
+            <div class="hero-bg-slide {% if forloop.first %}active{% endif %}"
+                style="background-image: url('{{ image.image.url }}');">
+            </div>
+            {% empty %}
+            <div class="hero-bg-slide active"
+                style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920');">
+            </div>
+            <div class="hero-bg-slide"
+                style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920');">
+            </div>
+            <div class="hero-bg-slide"
+                style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920');">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-crown"></i>
+                <span>Alto Padrão</span>
+            </div>
+            <h1 class="hero-title">{{ config.hero_title|default:"Imóveis de Alto Padrão em Porto Belo e Itapema" }}</h1>
+            <p class="hero-subtitle">{{ config.hero_subtitle|default:"Exclusividade e sofisticação no litoral catarinense" }}</p>
+
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Role para explorar</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section class="carousel-section" id="carousel">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Galeria</span>
+                <h2 class="section-title">Empreendimentos <span class="gold-text">Icônicos</span></h2>
+                <p class="section-subtitle">Os mais prestigiados empreendimentos de Porto Belo e Itapema</p>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    {% for image in carousel_images %}
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="{{ image.image.url }}" alt="{{ image.title|default:'' }}">
+                            {% if image.title or image.caption %}
+                            <div class="carousel-caption">
+                                {% if image.title %}<h3>{{ image.title }}</h3>{% endif %}
+                                {% if image.caption %}<p>{{ image.caption }}</p>{% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200"
+                                alt="Hard Rock Café Itapema">
+                            <div class="carousel-caption">
+                                <h3>Hard Rock Café Itapema</h3>
+                                <p>Ícone gastronômico e de entretenimento</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200"
+                                alt="Campo de Golfe">
+                            <div class="carousel-caption">
+                                <h3>Campo de Golfe</h3>
+                                <p>Excelência esportiva com vista para o mar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200"
+                                alt="Marina Porto Belo">
+                            <div class="carousel-caption">
+                                <h3>Marina Porto Belo</h3>
+                                <p>Náutica e lazer de alto padrão</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=1200"
+                                alt="Complexo Neymar">
+                            <div class="carousel-caption">
+                                <h3>Complexo Neymar</h3>
+                                <p>O maior complexo turístico da América Latina</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600566753086-00f18f6f7b9c?w=1200"
+                                alt="Senna Tower">
+                            <div class="carousel-caption">
+                                <h3>Senna Tower</h3>
+                                <p>O arranha-céu mais alto do Brasil</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=1200"
+                                alt="Orla de Itapema">
+                            <div class="carousel-caption">
+                                <h3>Orla de Itapema</h3>
+                                <p>Belezas naturais e urbanização de ponta</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Próximo">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="properties" id="properties">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Destaques</span>
+                <h2 class="section-title">Empreendimentos <span class="gold-text">Premium</span></h2>
+                <p class="section-subtitle">Seleção exclusiva dos melhores imóveis da região</p>
+            </div>
+            <div class="properties-grid">
+                {% for property in featured_properties %}
+                <div class="property-card">
+                    <div class="property-card-image">
+                        {% with main=property.main_image %}
+                        {% if main %}
+                        <img src="{{ main.image.url }}" alt="{{ main.alt_text|default:property.title }}">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600"
+                            alt="{{ property.title }}">
+                        {% endif %}
+                        {% endwith %}
+                        {% if property.property_type == "penthouse" %}
+                        <span class="property-badge badge-penthouse">Cobertura</span>
+                        {% elif property.property_type == "luxury" %}
+                        <span class="property-badge badge-luxury">Luxo</span>
+                        {% endif %}
+                    </div>
+                    <div class="property-card-body">
+                        <h3 class="property-card-title">{{ property.title }}</h3>
+                        <p class="property-card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ property.address|default:property.neighborhood }}, {{ property.city }} - {{
+                            property.state }}
+                        </p>
+                        <ul class="property-card-features">
+                            {% if property.bedrooms %}
+                            <li><i class="fas fa-bed"></i> {{ property.bedrooms }} quartos</li>
+                            {% endif %}
+                            {% if property.suites %}
+                            <li><i class="fas fa-bath"></i> {{ property.suites }} suítes</li>
+                            {% endif %}
+                            {% if property.area %}
+                            <li><i class="fas fa-vector-square"></i> {{ property.area }} m²</li>
+                            {% endif %}
+                            {% if property.garage_spots %}
+                            <li><i class="fas fa-car"></i> {{ property.garage_spots }} vagas</li>
+                            {% endif %}
+                        </ul>
+                        {% if property.short_description %}
+                        <p class="property-card-desc">{{ property.short_description }}</p>
+                        {% endif %}
+
+                        <a href="#contact" class="btn btn-gold property-card-btn">Saiba Mais</a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="property-card">
+                    <div class="property-card-image">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600"
+                            alt="Cobertura de Luxo">
+                        <span class="property-badge badge-penthouse">Cobertura</span>
+                    </div>
+                    <div class="property-card-body">
+                        <h3 class="property-card-title">Cobertura Beira-Mar</h3>
+                        <p class="property-card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Meia Praia, Itapema - SC
+                        </p>
+                        <ul class="property-card-features">
+                            <li><i class="fas fa-bed"></i> 5 quartos</li>
+                            <li><i class="fas fa-bath"></i> 6 suítes</li>
+                            <li><i class="fas fa-vector-square"></i> 420 m²</li>
+                            <li><i class="fas fa-car"></i> 4 vagas</li>
+                        </ul>
+                        <p class="property-card-desc">Cobertura duplex com vista panorâmica para o mar.</p>
+                        <a href="#contact" class="btn btn-gold property-card-btn">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-card-image">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600"
+                            alt="Apartamento de Luxo">
+                        <span class="property-badge badge-luxury">Luxo</span>
+                    </div>
+                    <div class="property-card-body">
+                        <h3 class="property-card-title">Apartamento Vista Mar</h3>
+                        <p class="property-card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Centro, Porto Belo - SC
+                        </p>
+                        <ul class="property-card-features">
+                            <li><i class="fas fa-bed"></i> 4 quartos</li>
+                            <li><i class="fas fa-bath"></i> 4 suítes</li>
+                            <li><i class="fas fa-vector-square"></i> 280 m²</li>
+                            <li><i class="fas fa-car"></i> 3 vagas</li>
+                        </ul>
+                        <p class="property-card-desc">Apartamento amplo com acabamento premium.</p>
+                        <a href="#contact" class="btn btn-gold property-card-btn">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-card-image">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600"
+                            alt="Casa de Alto Padrão">
+                        <span class="property-badge badge-luxury">Luxo</span>
+                    </div>
+                    <div class="property-card-body">
+                        <h3 class="property-card-title">Casa Condomínio Fechado</h3>
+                        <p class="property-card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Riviera, Porto Belo - SC
+                        </p>
+                        <ul class="property-card-features">
+                            <li><i class="fas fa-bed"></i> 5 quartos</li>
+                            <li><i class="fas fa-bath"></i> 5 suítes</li>
+                            <li><i class="fas fa-vector-square"></i> 650 m²</li>
+                            <li><i class="fas fa-car"></i> 6 vagas</li>
+                        </ul>
+                        <p class="property-card-desc">Casa com piscina, jardim e vista para o mar.</p>
+                        <a href="#contact" class="btn btn-gold property-card-btn">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-card-image">
+                        <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600"
+                            alt="Terreno Premium">
+                    </div>
+                    <div class="property-card-body">
+                        <h3 class="property-card-title">Terreno Frente Mar</h3>
+                        <p class="property-card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Perequê, Porto Belo - SC
+                        </p>
+                        <ul class="property-card-features">
+                            <li><i class="fas fa-vector-square"></i> 1.200 m²</li>
+                            <li><i class="fas fa-water"></i> Frente para o mar</li>
+                        </ul>
+                        <p class="property-card-desc">Terreno único com vista privilegiada.</p>
+                        <a href="#contact" class="btn btn-gold property-card-btn">Saiba Mais</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <div class="section-header text-left">
+                        <span class="section-tag">{{ config.about_title|default:"Por que investir aqui" }}</span>
+                        <h2 class="section-title">Valorização & <span class="gold-text">Qualidade de Vida</span></h2>
+                    </div>
+                    <div class="about-text">
+                        {% if config.about_text %}
+                        {{ config.about_text|linebreaks }}
+                        {% else %}
+                        <p>
+                            Porto Belo e Itapema são os destinos que mais crescem em Santa Catarina,
+                            com <strong>valorização imobiliária acima da média nacional</strong>.
+                            A região oferece infraestrutura de ponta, belezas naturais exuberantes
+                            e uma qualidade de vida incomparável.
+                        </p>
+                        <p>
+                            Com empreendimentos como o <strong>Complexo Neymar</strong>,
+                            <strong>Senna Tower</strong> e o novo <strong>Hard Rock Café Itapema</strong>,
+                            a região se consolida como o principal polo de luxo do sul do Brasil.
+                        </p>
+                        {% endif %}
+                        <div class="about-stats">
+                            <div class="stat">
+                                <span class="stat-number" data-target="35">0</span>
+                                <span class="stat-label">% valorização anual</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" data-target="28">0</span>
+                                <span class="stat-label">km de praias</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" data-target="150">0</span>
+                                <span class="stat-label">% retorno em 5 anos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800"
+                        alt="Porto Belo Vista Aérea">
+                    <div class="about-image-badge">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Porto Belo - SC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Depoimentos</span>
+                <h2 class="section-title">O que nossos <span class="gold-text">Clientes Dizem</span></h2>
+                <p class="section-subtitle">A satisfação dos nossos clientes é o nosso maior patrimônio</p>
+            </div>
+            <div class="testimonials-grid">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= testimonial.rating %} <i class="fas fa-star"></i>
+                            {% else %}
+                            <i class="far fa-star"></i>
+                            {% endif %}
+                            {% endfor %}
+                    </div>
+                    <p class="testimonial-text">"{{ testimonial.text }}"</p>
+                    <div class="testimonial-author">
+                        {% if testimonial.photo %}
+                        <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.name }}" class="testimonial-avatar">
+                        {% else %}
+                        <div class="testimonial-avatar testimonial-avatar-initial">{{ testimonial.name|first }}</div>
+                        {% endif %}
+                        <div class="testimonial-info">
+                            <h4>{{ testimonial.name }}</h4>
+                            <span>Cliente</span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"A Mari Corretora superou todas as nossas expectativas. Encontramos o
+                        imóvel dos sonhos e todo o processo foi transparente e profissional."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar testimonial-avatar-initial">C</div>
+                        <div class="testimonial-info">
+                            <h4>Carlos e Amanda</h4>
+                            <span>Itapema - SC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Profissionalismo e excelência. A Mari nos auxiliou em cada detalhe da
+                        negociação. Recomendo para quem busca imóveis de alto padrão na região."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar testimonial-avatar-initial">R</div>
+                        <div class="testimonial-info">
+                            <h4>Roberto S.</h4>
+                            <span>Porto Belo - SC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Investir em Porto Belo foi a melhor decisão. A Mari Corretora me
+                        apresentou oportunidades únicas e hoje tenho um patrimônio que valoriza a cada ano."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar testimonial-avatar-initial">P</div>
+                        <div class="testimonial-info">
+                            <h4>Patrícia L.</h4>
+                            <span>Investidora</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-content">
+                    <h2>Pronto para encontrar o imóvel dos seus sonhos?</h2>
+                    <p>Fale diretamente com Mari e descubra as melhores oportunidades em Porto Belo e Itapema.</p>
+                    {% if config.whatsapp_number %}
+                    {% with whatsapp=config.whatsapp_number|cut:"+"|cut:"-"|cut:" " %}
+                    <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn btn-whatsapp btn-lg">
+                        <i class="fab fa-whatsapp"></i>
+                        Fale com Mari agora
+                    </a>
+                    {% endwith %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    {% if config.logo %}
+                    <img src="{{ config.logo.url }}" alt="{{ config.site_name }}" class="footer-logo">
+                    {% else %}
+                    <div class="footer-logo-text">
+                        <span class="logo-text">MARI</span>
+                        <span class="logo-subtext">CORRETORA</span>
+                    </div>
+                    {% endif %}
+                    <p class="footer-tagline">Exclusividade e sofisticação no litoral catarinense.</p>
+                    <div class="footer-social">
+                        {% if config.instagram_url %}
+                        <a href="{{ config.instagram_url }}" target="_blank" aria-label="Instagram"><i
+                                class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if config.facebook_url %}
+                        <a href="{{ config.facebook_url }}" target="_blank" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        {% endif %}
+                        {% if config.youtube_url %}
+                        <a href="{{ config.youtube_url }}" target="_blank" aria-label="YouTube"><i
+                                class="fab fa-youtube"></i></a>
+                        {% endif %}
+                        {% if config.linkedin_url %}
+                        <a href="{{ config.linkedin_url }}" target="_blank" aria-label="LinkedIn"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#properties">Imóveis</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <ul>
+                        {% if config.whatsapp_number %}
+                        <li>
+                            <i class="fab fa-whatsapp"></i>
+                            {% with whatsapp=config.whatsapp_number|cut:"+"|cut:"-"|cut:" " %}
+                            <a href="https://wa.me/{{ whatsapp }}" target="_blank">{{ config.whatsapp_number }}</a>
+                            {% endwith %}
+                        </li>
+                        {% endif %}
+                        {% if config.phone %}
+                        <li><i class="fas fa-phone"></i> {{ config.phone }}</li>
+                        {% endif %}
+                        {% if config.email %}
+                        <li><i class="fas fa-envelope"></i> {{ config.email }}</li>
+                        {% endif %}
+                        {% if config.address %}
+                        <li><i class="fas fa-map-marker-alt"></i> {{ config.address }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="footer-map">
+                    <h4>Região de Atuação</h4>
+                    <div class="footer-region">
+                        <span><i class="fas fa-city"></i> Porto Belo - SC</span>
+                        <span><i class="fas fa-city"></i> Itapema - SC</span>
+                        <span><i class="fas fa-umbrella-beach"></i> Litoral Catarinense</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} {{ config.site_name|default:"Mari Corretora" }}. Todos os direitos reservados.
+                </p>
+                <p class="footer-credit">Desenvolvido por KFS Solucões
+                    Web</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="scroll-to-top" id="scrollToTop" aria-label="Voltar ao topo">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    {% if config.whatsapp_number %}
+    {% with whatsapp=config.whatsapp_number|cut:"+"|cut:"-"|cut:" " %}
+    <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    {% endwith %}
+    {% endif %}
+
+    <script src="{% static 'core/js/main.js' %}"></script>
+</body>
+
+</html>

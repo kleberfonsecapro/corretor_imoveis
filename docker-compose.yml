@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v3.3
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - "--api.dashboard=true"
+      - "--providers.file.directory=/etc/traefik/dynamic"
+      - "--providers.file.watch=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
+    networks:
+      - mari_network
+
+  db:
+    image: mysql:8.4
+    container_name: mari_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_2026
+      MYSQL_DATABASE: mari_corretora
+      MYSQL_USER: mari_user
+      MYSQL_PASSWORD: mari_pass_2026
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - mari_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  django:
+    build: ./mari_corretora
+    container_name: mari_django
+    restart: unless-stopped
+    command: >
+      sh -c "
+        python manage.py migrate --noinput &&
+        python manage.py collectstatic --noinput --clear &&
+        python manage.py seed_data &&
+        gunicorn mari_corretora.wsgi:application --bind 0.0.0.0:8000 --workers 4 --access-logfile - --error-logfile -
+      "
+    volumes:
+      - ./mari_corretora:/app
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mari_network
+
+volumes:
+  mysql_data:
+  media_data:
+  static_data:
+
+networks:
+  mari_network:
+    driver: bridge

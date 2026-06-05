@@ -1,0 +1,51 @@
+http:
+  routers:
+    django:
+      rule: "Host(`mari.localhost`) || Host(`www.mari.localhost`)"
+      entryPoints:
+        - web
+      service: django
+      middlewares:
+        - cors-headers
+        - security-headers
+    api:
+      rule: "Host(`traefik.mari.localhost`)"
+      entryPoints:
+        - web
+      service: api@internal
+      middlewares:
+        - auth
+
+  services:
+    django:
+      loadBalancer:
+        servers:
+          - url: "http://mari_django:8000"
+
+  middlewares:
+    cors-headers:
+      headers:
+        accessControlAllowOriginList:
+          - "*"
+        accessControlAllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+        accessControlAllowHeaders:
+          - "*"
+        accessControlMaxAge: 86400
+
+    security-headers:
+      headers:
+        frameDeny: true
+        contentTypeNosniff: true
+        browserXssFilter: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        permissionsPolicy: "camera=(), microphone=(), geolocation=()"
+
+    auth:
+      basicAuth:
+        users:
+          - "admin:$2y$10$YourHashedPasswordHere"
