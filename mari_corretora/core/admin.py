@@ -100,7 +100,7 @@ class TestimonialAdmin(admin.ModelAdmin):
             '<div style="width: 80px; height: 80px; border-radius: 50%; '
             'background: #1a2744; display: flex; align-items: center; '
             'justify-content: center; color: white; font-size: 32px;">{}</div>',
-            obj.name[0].upper(),
+            obj.name[0].upper() if obj.name else "?",
         )
 
     photo_preview.short_description = "Foto"
