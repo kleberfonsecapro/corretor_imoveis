@@ -34,9 +34,9 @@ SLIDES = [
     },
     {
         "image": "core/images/presentation/slide-03.jpeg",
-        "bg": "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=1920&q=80",
+        "bg": "/static/core/images/presentation/senna-tower.jpg",
         "title": "Atuação em Santa Catarina",
-        "text": "Há 2 anos atuo no litoral norte de Santa Catarina, uma das regiões mais valorizadas e desejadas do Brasil, acompanhando de perto o crescimento acelerado do mercado imobiliário local.",
+        "text": "Há 2 anos atuo no litoral norte de Santa Catarina, uma das regiões mais valorizadas e desejadas do Brasil, acompanhando de perto o crescimento acelerado do mercado imobiliário local. Aqui na região está sendo construído o Senna Tower, o maior prédio residencial do mundo, em Balneário Camboriú.",
     },
     {
         "image": "core/images/presentation/slide-04.jpeg",
@@ -46,15 +46,45 @@ SLIDES = [
     },
     {
         "image": "core/images/presentation/slide-01.jpeg",
-        "bg": "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=1920&q=80",
+        "bg": "/static/core/images/presentation/hard-rock-itapema.jpg",
         "title": "Itapema",
-        "text": "📈 Atuo em Itapema, referência nacional em valorização imobiliária, qualidade de vida e forte potencial de rentabilidade para investidores.",
+        "text": "📈 Atuo em Itapema, referência nacional em valorização imobiliária, qualidade de vida e forte potencial de rentabilidade para investidores. A cidade conta agora com o Píer Oporto e o Hard Rock Cafe Itapema, a única unidade da rede construída sobre a água no mundo.",
+    },
+    {
+        "image": "core/images/presentation/slide-03.jpeg",
+        "bg": "/static/core/images/presentation/charles-ii.jpg",
+        "title": "Charles II Yacht Royal Home",
+        "text": "⛵ O Charles II Yacht Royal Home by OKEAN é o primeiro branded residence náutico da América Latina, em Itapema. Inspirado no iate OKEAN 80, terá 255 m de altura, mais de 70 pavimentos, marina privativa com atracadouro, heliponto homologado e o Sky Place com piscina de borda infinita com vista de 180° do mar. Um marco do luxo náutico no litoral catarinense.",
+    },
+    {
+        "image": "core/images/presentation/slide-01.jpeg",
+        "bg": "/static/core/images/presentation/edify-one.jpg",
+        "title": "Edify One",
+        "text": "🏗️ O Edify One, em Itapema, é o 'prédio do Neymar', com 45 pavimentos e cobertura triplex de R$ 52 milhões. Conta com heliponto homologado, 2.700 m² de área de lazer com piscina infinita, academia, spa e vista frente mar. Um empreendimento que redefine o padrão de luxo na cidade.",
     },
     {
         "image": "core/images/presentation/slide-02.jpeg",
-        "bg": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80",
+        "bg": "/static/core/images/presentation/ecossistema-neymar.jpg",
         "title": "Porto Belo",
-        "text": "🌊 Também atuo em Porto Belo, cidade que vem atraindo grandes investimentos, novos empreendimentos e marcas de relevância internacional, consolidando-se como uma das regiões mais promissoras do país.",
+        "text": "🌊 Também atuo em Porto Belo, cidade que vem atraindo grandes investimentos, novos empreendimentos e marcas de relevância internacional, consolidando-se como uma das regiões mais promissoras do país. A cidade receberá o Ecossistema Neymar Jr., megacomplexo esportivo e de luxo.",
+    },
+    {
+        "image": "core/images/presentation/slide-03.jpeg",
+        "bg": "/static/core/images/presentation/emaar-exclusive.jpg",
+        "title": "Emaar Exclusive",
+        "text": "✨ O Emaar Exclusive, em Porto Belo, é um empreendimento de alto padrão que oferece apartamentos com acabamentos premium, vista para o mar e áreas de lazer completas. Uma oportunidade única de morar em uma das regiões mais valorizadas de Santa Catarina.",
+    },
+    {
+        "image": "core/images/presentation/slide-04.jpeg",
+        "bg": "/static/core/images/presentation/gran-paradiso.jpg",
+        "title": "Gran Paradiso",
+        "text": "🌿 O Gran Paradiso, em Porto Belo, é um residencial de luxo cercado por natureza, com apartamentos amplos, áreas verdes preservadas e infraestrutura completa de lazer. O equilíbrio perfeito entre sofisticação e contato com a natureza.",
+    },
+    {
+        "image": "core/images/presentation/slide-03.jpeg",
+        "bg": "/static/core/images/presentation/all-resort-portobelo.jpg",
+        "title": "All Resort Club Residence",
+        "text": "🏌️ O All Resort Club Residence, em Porto Belo, é o maior resort residencial da Costa Esmeralda, com campo de golfe iluminado (único da América Latina), Rafa Nadal Tennis Center, piscina de ondas com 1km de praia artificial, centro hípico e o Park Art Design com obras de arquitetura a céu aberto. Um marco do luxo e da qualidade de vida na região.",
     },
     {
         "image": "core/images/presentation/slide-03.jpeg",
