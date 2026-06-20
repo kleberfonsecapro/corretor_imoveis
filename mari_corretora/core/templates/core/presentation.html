@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Me Conheça | Mari Corretora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'core/css/presentation.css' %}">
+</head>
+<body>
+    <div class="presentation">
+        <div class="slides-container" id="slidesContainer">
+            {% for slide in slides %}
+            <div class="slide{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}">
+                <div class="slide-bg-scene" style="background-image: url('{{ slide.bg }}');"></div>
+                <div class="slide-overlay"></div>
+                <div class="slide-bg" style="background-image: url('{% static slide.image %}');"></div>
+                <div class="slide-content">
+                    <div class="slide-number">{{ forloop.counter|stringformat:"02d" }}</div>
+                    <h2 class="slide-title">{{ slide.title }}</h2>
+                    <div class="slide-divider"></div>
+                    <div class="slide-text">{{ slide.text|linebreaks }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="presentation-header">
+            <a href="{% url 'home' %}" class="presentation-back">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar</span>
+            </a>
+            <div class="presentation-brand">Mari Corretora</div>
+        </div>
+
+        <div class="presentation-nav">
+            <button class="pres-nav-btn" id="presPrev" aria-label="Anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="pres-counter" id="presCounter">01 / 08</div>
+            <button class="pres-nav-btn" id="presNext" aria-label="Próximo">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="pres-progress" id="presProgress">
+            {% for slide in slides %}
+            <div class="pres-progress-bar{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}"></div>
+            {% endfor %}
+        </div>
+
+        <div class="pres-dots" id="presDots">
+            {% for slide in slides %}
+            <button class="pres-dot{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{% static 'core/js/presentation.js' %}"></script>
+</body>
+</html>
