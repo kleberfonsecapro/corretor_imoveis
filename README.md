@@ -198,10 +198,10 @@ Acessar `/admin/core/testimonial/`:
 
 ```bash
 # Backup do banco
-docker compose exec db mysqldump -u mari_user -pmari_pass_2026 mari_corretora > backup_$(date +%Y%m%d).sql
+docker compose exec db sh -c 'mysqldump -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"' > backup_$(date +%Y%m%d).sql
 
 # Restore
-cat backup.sql | docker compose exec -T db mysql -u mari_user -pmari_pass_2026 mari_corretora
+cat backup.sql | docker compose exec -T db sh -c 'mysql -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'
 ```
 
 ### Migrations
